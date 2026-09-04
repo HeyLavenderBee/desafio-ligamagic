@@ -7,7 +7,7 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <h3>Cadastrar Carta</h3>
+    <h2>Cadastrar Carta</h2>
     <label>Nome da carta em inglês</label>
     <input required><br>
     <label>Nome da carta em português</label>
@@ -19,25 +19,23 @@
         <option id="yugioh">Yu-Gi-Oh!</option>
     </select><br>
     <label>Edição</label>
-    <select>
-        <option>Base Set</option>
-        <option>Base Set</option>
-        <option>Base Set</option>
+    <select disabled>
+        <option>Selecione um Card Game primeiro</option>
     </select><br>
     <label>Imagem da carta</label>
     <input><br>
     <label>Raridade da carta</label>
     <input>
     <br><br>
+    <p>Cartas existentes (1)</p>
     <div class="card">
         Nome em inglês da carta<br>
         Nome em português da carta<br>
         Jogo<br>
         Edição<br>
         Raridade<br>
-        <div class="card-img">
-            Imagem
-        </div>
+        <img class="card-img" src="img/lucario-card.png">
+        <button>Editar carta</button>
     </div>
     <script src="./index.js"></script>
 </body>

@@ -1,12 +1,13 @@
 .card{
     max-width: 20rem;
-    background-color: yellow;
+    color: white;
+    background-color: #583777;
     padding: 0.8rem;
     border-radius: 0.6rem;
 }
 
 .card-img{
-    width: 10rem;
     height: 15rem;
+    border-radius: 0.2rem;
     background-color: aquamarine;
 }
