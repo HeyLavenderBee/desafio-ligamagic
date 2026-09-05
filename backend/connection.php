@@ -4,10 +4,5 @@
     $user = "root";
     $password = "";
 
-    $mysqli = new mysqli($hostname, $user, $password, $bd);
-    if($mysqli -> connect_errno) {
-        echo "Falha ao conectar.";
-    } else {
-        echo "Conectado ao Banco de Dados com sucesso!";
-    }
+    $conn = mysqli_connect($hostname, $user, $password, $bd);
 ?>
