@@ -20,4 +20,6 @@ CREATE TABLE IF NOT EXISTS cards(
 
 INSERT INTO cards (en_name, pt_name, card_game, game_edition, img, rarity)
 VALUES
-("Lucario", "Lucario em Pt-BR", "Pokémon", "Sword & Shield", "imagemaaaaaaa", "Rara");
+("Lucario", "Lucario em Pt-BR", "Pokémon", "Sword & Shield", "imagemaaaaaaa", "Rara"),
+("Cutiefly", "Cutiefly em Pt-BR", "Pokémon", "Sword & Shield", "umaimagem", "Super Rara"),
+("Audino", "Audino em Pt-BR", "Pokémon", "Sword & Shield", "helloooooimg", "Comum");
