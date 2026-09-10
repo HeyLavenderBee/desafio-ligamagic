@@ -39,7 +39,7 @@
       </div>
       <label>Imagem da carta</label>
       <input type="file" id="img-input">
-      <pre id="output"></pre>
+      <img id="output">
 
       <br />
       <div class="help-info">
@@ -47,16 +47,16 @@
         que indicam sua raridade.<br>
         Aqui estão os links para cada um dos card games: 
         <br />
-        - Pokémon - 
-        <img
-          src="img/pokemon-rarity-chart.png"
-          width="320"
-        />
+        <a href="https://www.wikihow.com/Pokemon-Rarity-Symbols">Pokémon</a>
+        <br>
         <a href="https://www.wargamer.com/magic-the-gathering/card-rarity">Magic: The Gathering</a>
         <br>
         <a href="https://www.yugiohcardguide.com/guide_to_card_rarity.html">Yu-Gi-Oh!</a>
       </div>
-      <label>Raridade da carta</label>
+      <div>
+        <label>Raridade da carta</label>
+        <button id="rarity-info" class="info-button">i</button>
+      </div>
       <input /><br />
 
       <button onclick="createCard()">Criar carta</button>

@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS cards(
     pt_name VARCHAR(100),
     card_game VARCHAR(50) NOT NULL,
     game_edition VARCHAR(50) NOT NULL,
-    img LONGBLOB NOT NULL,
+    img LONGTEXT NOT NULL,
     rarity VARCHAR(100) NOT NULL
 );
 

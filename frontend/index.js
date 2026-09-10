@@ -1,3 +1,5 @@
+var imageBase64 = "";
+
 function showLoading(isLoading) {
   if (isLoading) {
     document.getElementById("loading-icon").innerHTML = "Carregando...";
@@ -14,7 +16,6 @@ async function getCards() {
     const message = data.message;
 
     if (data.status != "success") {
-      console.log(message);
       return;
     }
 
@@ -33,7 +34,7 @@ async function getCards() {
             Nome pt-BR: ${message[info].pt_name}<br>
             Card Game: ${message[info].card_game || "tchau"}<br>
             Edição: ${message[info].game_edition || "tchau"}<br>
-            Imagem: ${message[info].img || "tchau"}<br>
+            Imagem: <img src='${message[info].img}' width="200"> <br>
             Raridade: ${message[info].rarity || "tchau"}
           </div>
           <br>
@@ -52,7 +53,6 @@ async function getCards() {
 }
 
 async function createCard() {
-  console.log(new Blob(document.getElementById("img-input").value));
   try {
     showLoading(true);
     let response = await fetch("http://localhost:9990/cards", {
@@ -62,7 +62,7 @@ async function createCard() {
         en_name: "Julia en",
         pt_name: "Julia pt-br",
         card_game: "pokemon",
-        img: "oieimgsdjfk",
+        img: imageBase64,
       }),
     });
     const data = await response.json();
@@ -73,6 +73,27 @@ async function createCard() {
     showLoading(false);
   }
 }
+
+// https://medium.com/@vijayda1404/mastering-image-conversion-to-binary-format-with-javascript-426e89922dcf
+function imageToBinary(file){
+  const reader = new FileReader();
+
+    reader.onload = (e) => {
+      imageBase64 = e.target.result; //base64 string
+      
+      document.getElementById('output').src = imageBase64;
+      console.log("Base64 ready to send:", imageBase64.substring(0, 50) + "...");
+    };
+
+    reader.readAsDataURL(file);
+}
+
+document.getElementById('img-input').addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    imageToBinary(file);
+  }
+});
 
 // document.getElementById("backend-result").innerHTML = message[0].en_name;
 
