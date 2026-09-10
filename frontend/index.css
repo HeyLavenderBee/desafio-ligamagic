@@ -1,5 +1,31 @@
+.new-card-form{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+    border-radius: 0.8rem;
+    background-color: rgb(169, 189, 206);
+}
+
+.new-card-form input, select{
+    padding: 0.4rem;
+    border-radius: 0.2rem;
+    border: none;
+}
+
+.help-info{
+    color: rgb(84, 37, 122);
+    font-size: 0.8rem;
+}
+
+.cards-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
 .card{
-    max-width: 20rem;
+    width: 15rem;
     color: white;
     background-color: #583777;
     padding: 0.8rem;

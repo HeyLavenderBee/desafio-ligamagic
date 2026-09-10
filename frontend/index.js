@@ -1,7 +1,7 @@
-function showLoading(isLoading){
-  if(isLoading){
+function showLoading(isLoading) {
+  if (isLoading) {
     document.getElementById("loading-icon").innerHTML = "Carregando...";
-  } else{
+  } else {
     document.getElementById("loading-icon").innerHTML = "";
   }
 }
@@ -9,9 +9,14 @@ function showLoading(isLoading){
 async function getCards() {
   try {
     showLoading(true);
-    let response = await fetch("http://localhost:9990");
+    let response = await fetch("http://localhost:9990/cards");
     const data = await response.json();
     const message = data.message;
+
+    if (data.status != "success") {
+      console.log(message);
+      return;
+    }
 
     let cardsTotal = message.length;
     let resultHtml = ``;
@@ -23,14 +28,16 @@ async function getCards() {
     } else {
       for (let info in message) {
         resultHtml += `
-              <div class="card">
-              Nome: ${message[info].en_name}<br>
-              Nome pt-BR: ${message[info].pt_name}<br>
-              Card Game: ${message[info].card_game || "tchau"}<br>
-              Raridade: ${message[info].raridade || "tchau"}
-              </div>
-              <br>
-          `;
+          <div class="card">
+            Nome: ${message[info].en_name}<br>
+            Nome pt-BR: ${message[info].pt_name}<br>
+            Card Game: ${message[info].card_game || "tchau"}<br>
+            Edição: ${message[info].game_edition || "tchau"}<br>
+            Imagem: ${message[info].img || "tchau"}<br>
+            Raridade: ${message[info].rarity || "tchau"}
+          </div>
+          <br>
+        `;
       }
     }
 
@@ -39,6 +46,29 @@ async function getCards() {
     document.getElementById("backend-result").innerHTML = resultHtml;
   } catch (e) {
     console.log("Não foi possível conectar ao backend.");
+  } finally {
+    showLoading(false);
+  }
+}
+
+async function createCard() {
+  console.log(new Blob(document.getElementById("img-input").value));
+  try {
+    showLoading(true);
+    let response = await fetch("http://localhost:9990/cards", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        en_name: "Julia en",
+        pt_name: "Julia pt-br",
+        card_game: "pokemon",
+        img: "oieimgsdjfk",
+      }),
+    });
+    const data = await response.json();
+    console.log("resposta post: ", data);
+  } catch (e) {
+    console.log(e.message);
   } finally {
     showLoading(false);
   }

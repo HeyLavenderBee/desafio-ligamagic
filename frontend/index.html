@@ -1,36 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
     <title>Dashboard</title>
-</head>
-<body>
+  </head>
+  <body>
+    <h1>Página Administrativa</h1>
     <h2>Cadastrar Carta</h2>
-    <label>Nome da carta em inglês</label>
-    <input required><br>
-    <label>Nome da carta em português</label>
-    <input><br>
-    <label>Card Game</label>
-    <select>
+    <div class="new-card-form">
+      <label>Nome da carta em inglês</label>
+      <input id="input-en-name" required /><br />
+      <label>Nome da carta em português</label>
+      <input /><br />
+
+      <div class="help-info">
+        info: Nome do jogo que vem essa carta (ex.: Pokémon)
+      </div>
+      <label>Card Game</label>
+      <select>
         <option id="magic">Magic: The Gathering</option>
         <option id="pokemon">Pokemon</option>
-        <option id="yugioh">Yu-Gi-Oh!</option>
-    </select><br>
-    <label>Edição</label>
-    <select disabled>
-        <option>Selecione um Card Game primeiro</option>
-    </select><br>
-    <label>Imagem da carta</label>
-    <input><br>
-    <label>Raridade da carta</label>
-    <input>
-    <br><br>
+        <option id="yugioh">Yu-Gi-Oh!</option></select
+      ><br /><br />
+
+      <div class="help-info">
+        info: Cartas de cada card game pertecem a uma edição
+      </div>
+      <label>Edição</label>
+      <select disabled>
+        <option>Selecione um Card Game primeiro</option></select
+      ><br />
+
+      <div class="help-info">
+        info: Tire uma foto da carta que ela esteja completamente visível, e da
+        sua frente
+      </div>
+      <label>Imagem da carta</label>
+      <input type="file" id="img-input">
+      <pre id="output"></pre>
+
+      <br />
+      <div class="help-info">
+        info: Cada carta Pokémon tem símbolos que você pode verificar no canto
+        que indicam sua raridade.<br>
+        Aqui estão os links para cada um dos card games: 
+        <br />
+        - Pokémon - 
+        <img
+          src="img/pokemon-rarity-chart.png"
+          width="320"
+        />
+        <a href="https://www.wargamer.com/magic-the-gathering/card-rarity">Magic: The Gathering</a>
+        <br>
+        <a href="https://www.yugiohcardguide.com/guide_to_card_rarity.html">Yu-Gi-Oh!</a>
+      </div>
+      <label>Raridade da carta</label>
+      <input /><br />
+
+      <button onclick="createCard()">Criar carta</button>
+    </div>
+
+    <br />
+    <button>Cadastrar nova carta</button>
+    <br /><br />
     <p id="total-cards">Cartas existentes (0)</p>
     <div id="loading-icon"></div>
-    <div id="backend-result"></div>
-    <div class="card">
+
+    <div id="backend-result" class="cards-list"></div>
+
+    <!-- <div class="card">
         Nome em inglês da carta<br>
         Nome em português da carta<br>
         Jogo<br>
@@ -38,7 +78,7 @@
         Raridade<br>
         <img class="card-img" src="img/lucario-card.png">
         <button>Editar carta</button>
-    </div>
+    </div> -->
     <script src="./index.js"></script>
-</body>
+  </body>
 </html>
