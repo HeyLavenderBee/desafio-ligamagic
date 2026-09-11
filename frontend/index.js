@@ -34,10 +34,9 @@ async function getCards() {
             Nome pt-BR: ${message[info].pt_name}<br>
             Card Game: ${message[info].card_game || "tchau"}<br>
             Edição: ${message[info].game_edition || "tchau"}<br>
-            Imagem: <img src='${message[info].img}' width="200"> <br>
-            Raridade: ${message[info].rarity || "tchau"}
+            Raridade: ${message[info].rarity || "tchau"}<br>
+            Imagem: <img src='${message[info].img}' width="200">
           </div>
-          <br>
         `;
       }
     }
@@ -55,13 +54,26 @@ async function getCards() {
 async function createCard() {
   try {
     showLoading(true);
+    let enName = document.getElementById("input-en-name").value;
+    let ptName = document.getElementById("input-pt-name").value;
+    let cardGame = document.getElementById("card-game-select").value;
+    let gameEdition = document.getElementById("game-edition-select").value;
+    let rarity = document.getElementById("rarity-input").value;
+
+    if(enName == "" || ptName == "" || cardGame == "select" || rarity == ""){
+      document.getElementById("img-error-message").innerHTML = "erro";
+      return;
+    }
+
     let response = await fetch("http://localhost:9990/cards", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        en_name: "Julia en",
-        pt_name: "Julia pt-br",
-        card_game: "pokemon",
+        en_name: enName,
+        pt_name: ptName,
+        card_game: cardGame,
+        game_edition: "Pokémon",
+        rarity: rarity,
         img: imageBase64,
       }),
     });
@@ -74,6 +86,16 @@ async function createCard() {
   }
 }
 
+function showHelpInfo(buttonId) {
+  if(document.getElementById(buttonId+"-card").className == "help-info"){
+    document.getElementById(buttonId+"-card").className = "help-info card-show"
+  } else{
+    document.getElementById(buttonId+"-card").className = "help-info"
+  }
+}
+
+getCards();
+
 // https://medium.com/@vijayda1404/mastering-image-conversion-to-binary-format-with-javascript-426e89922dcf
 function imageToBinary(file){
   const reader = new FileReader();
@@ -81,11 +103,32 @@ function imageToBinary(file){
     reader.onload = (e) => {
       imageBase64 = e.target.result; //base64 string
       
-      document.getElementById('output').src = imageBase64;
-      console.log("Base64 ready to send:", imageBase64.substring(0, 50) + "...");
+      let imageSize = calculateImageSize(imageBase64);
+      console.log(imageSize)
+      // caso a imagem for maior que 4Mb (4096Kb -> limite do xampp/MySQL), enviar erro
+      if (imageSize > 4096){
+        document.getElementById("img-error-message").innerHTML = "A imagem precisa ter até 10Mb!";
+        document.getElementById("img-error-message").className = "error-message";
+        document.getElementById("img-input").value = "";
+        return;
+      }
+      
+      document.getElementById('output').innerHTML = `
+        <img class="img-output" src='${imageBase64}'>
+      `;
     };
 
     reader.readAsDataURL(file);
+}
+
+// função para evitar arquivos grandes demais no banco de dados (limite de 1024kb)
+// https://stackoverflow.com/questions/73485602/calculate-the-size-of-a-base64-image-in-kb-mb
+function calculateImageSize(base64){
+  const baseString = base64.substring(base64.indexOf(',') + 1);
+  const bits = baseString.length * 6;
+  const bytes = bits/8;
+  const kb = Math.ceil(bytes/1000);
+  return kb;
 }
 
 document.getElementById('img-input').addEventListener('change', (event) => {
@@ -94,7 +137,3 @@ document.getElementById('img-input').addEventListener('change', (event) => {
     imageToBinary(file);
   }
 });
-
-// document.getElementById("backend-result").innerHTML = message[0].en_name;
-
-getCards();

@@ -46,12 +46,15 @@ switch ($uri){
             if($data && isset($data['en_name'])){
                 $en_name = $data['en_name'];
                 $pt_name = $data['pt_name'];
+                $card_game = $data['card_game'];
+                $game_edition = $data['game_edition'];
+                $rarity = $data['rarity'];
                 $img = $data['img'];
 
                 $sql = "INSERT INTO cards 
                     (en_name, pt_name, card_game, game_edition, rarity, img)
                     VALUES
-                    ('".$en_name."', 'nome em pt', 'pokemon', 'scarlet and violet', 'comum', '".$img."')
+                    ('".$en_name."', '".$pt_name."', '".$card_game."', '".$game_edition."', '".$rarity."', '".$img."')
                 ";
 
                 if($conn->query($sql) === TRUE){
