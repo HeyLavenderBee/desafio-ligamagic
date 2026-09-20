@@ -8,12 +8,12 @@
   </head>
   <body>
     <h1>Página Administrativa</h1>
-    <h2>Cadastrar Carta</h2>
-    <div class="new-card-form">
+    <div class="new-card-form hidden" id="new-card-form">
+      <h2>Cadastrar Carta</h2>
       <label for="input-en-name">Nome da carta em inglês</label>
       <input id="input-en-name" required />
       <label for="input-pt-name">Nome da carta em português</label>
-      <input id="input-pt-name"/>
+      <input id="input-pt-name" />
 
       <div class="card-select-container">
         <div>
@@ -22,7 +22,13 @@
           </div>
           <div>
             <label>Card Game</label>
-            <button id="card-game-info" class="info-button" onclick="showHelpInfo(id)">i</button>
+            <button
+              id="card-game-info"
+              class="info-button"
+              onclick="showHelpInfo(id)"
+            >
+              i
+            </button>
           </div>
           <select id="card-game-select" required>
             <option value="selecione">Selecione um card game</option>
@@ -34,11 +40,20 @@
 
         <div>
           <div class="help-info" id="edition-info-card">
-            Cartas de cada card game pertecem a uma edição
+            Cartas de cada card game pertecem a uma edição.<br>
+            Caso não saiba a edição, pesquise por foto<br>
+            por um sistema de busca por imagens ou pesquise<br>
+            pelo nome da carta específica. 
           </div>
           <div>
             <label>Edição</label>
-            <button id="edition-info" class="info-button" onclick="showHelpInfo(id)">i</button>
+            <button
+              id="edition-info"
+              class="info-button"
+              onclick="showHelpInfo(id)"
+            >
+              i
+            </button>
           </div>
           <select id="game-edition-select" disabled required>
             <option>Selecione um Card Game primeiro</option>
@@ -47,8 +62,8 @@
       </div>
 
       <div class="help-info" id="rarity-info-card">
-        Cada carta Pokémon tem símbolos que você pode verificar no canto
-        que indicam sua raridade.<br />
+        Cada carta Pokémon tem símbolos que você pode verificar no canto que
+        indicam sua raridade.<br />
         Aqui estão os links para cada um dos card games:
         <br />
         <a href="https://www.wikihow.com/Pokemon-Rarity-Symbols">Pokémon</a>
@@ -63,28 +78,41 @@
       </div>
       <div>
         <label for="rarity-info">Raridade da carta</label>
-        <button id="rarity-info" class="info-button" onclick="showHelpInfo(id)">i</button>
+        <button id="rarity-info" class="info-button" onclick="showHelpInfo(id)">
+          i
+        </button>
       </div>
-      <input id="rarity-input" required/>
+      <input id="rarity-input" required />
 
       <div class="help-info" id="img-info-card">
-        Tire uma foto da carta que ela esteja completamente visível, e da
-        sua frente
+        Tire uma foto da carta que ela esteja completamente visível, e da sua
+        frente
       </div>
       <div>
         <p id="img-error-message"></p>
         <label>Imagem da carta</label>
-        <button id="img-info" class="info-button" onclick="showHelpInfo(id)">i</button>
+        <button id="img-info" class="info-button" onclick="showHelpInfo(id)">
+          i
+        </button>
       </div>
-      
-      <input type="file" id="img-input" required/>
+
+      <input type="file" id="img-input" required />
       <div id="output"></div>
 
-      <button onclick="createCard()" class="create-card-button">Criar carta</button>
+      <div class="button-container">
+        <button onclick="createCard()" class="create-card-button">
+          Criar carta
+        </button>
+        <button onclick="closeNewCardForm()" class="close-form-button">
+          Cancelar
+        </button>
+      </div>
     </div>
 
     <br />
-    <button>Cadastrar nova carta</button>
+    <button class="create-card-button" id="open-new-card-form-button">
+      + Cadastrar nova carta
+    </button>
     <br /><br />
     <p id="total-cards">Cartas existentes (0)</p>
     <div id="loading-icon"></div>

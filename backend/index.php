@@ -23,6 +23,8 @@ switch ($uri){
             $sql = "SELECT * FROM cards";
             $sql_result = mysqli_query($conn, $sql);
 
+            $result = [];
+
             if($sql_result){
                 $i = 0;
                 while($row = mysqli_fetch_assoc($sql_result)){
@@ -64,7 +66,17 @@ switch ($uri){
                 }
             }
         } else if ($method == "DELETE"){
-            $response = ["status" => "success", "message" => "Carta deletada."];
+            $json_body = file_get_contents('php://input');
+            $data = json_decode($json_body, true);
+            if($data && isset($data['id'])){
+                $id = $data['id'];
+                $sql = "DELETE FROM cards where id = '".$id."'";
+                if($conn->query($sql) === TRUE){
+                    $response = ["status" => "success", "message" => "Carta deletada."];
+                } else{
+                    $response = ["status" => "error", "message" => "Não foi possível deletar a carta. Tente novamente."];
+                }
+            }
         } else {
             http_response_code(404);
             $response = ["status" => "error", "message" => "Ação não encontrada para cartas."];
@@ -72,7 +84,7 @@ switch ($uri){
         break;
     case "/login":
         if($method == "GET"){
-            $response = ["status" => "success", "message" => "Pegou uuário do banco."];
+            $response = ["status" => "success", "message" => "Pegou usuário do banco."];
         }
         break;
     default:

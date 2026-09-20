@@ -1,3 +1,5 @@
+const newCardButton = document.getElementById("open-new-card-form-button");
+
 var imageBase64 = "";
 
 function showLoading(isLoading) {
@@ -29,13 +31,16 @@ async function getCards() {
     } else {
       for (let info in message) {
         resultHtml += `
-          <div class="card">
-            Nome: ${message[info].en_name}<br>
-            Nome pt-BR: ${message[info].pt_name}<br>
-            Card Game: ${message[info].card_game || "tchau"}<br>
-            Edição: ${message[info].game_edition || "tchau"}<br>
-            Raridade: ${message[info].rarity || "tchau"}<br>
-            Imagem: <img src='${message[info].img}' width="200">
+          <div class="card" id="card-${message[info].id}">
+            <strong class="card-prop">Nome:</strong> ${message[info].en_name}<br>
+            <strong class="card-prop">Nome pt-BR:</strong> ${message[info].pt_name}<br>
+            <strong class="card-prop">Card Game</strong>: ${message[info].card_game || "tchau"}<br>
+            <strong class="card-prop">Edição:</strong> ${message[info].game_edition || "tchau"}<br>
+            <strong class="card-prop">Raridade:</strong> ${message[info].rarity || "tchau"}<br>
+            <strong class="card-prop">Imagem:</strong> <img src='${message[info].img}' width="200">
+            <br>
+            <button onclick="editCard(${message[info].id})">Editar</button>
+            <button onclick="deleteCard(${message[info].id})">Deletar</button>
           </div>
         `;
       }
@@ -51,6 +56,22 @@ async function getCards() {
   }
 }
 
+async function deleteCard(id) {
+  let response = await fetch("http://localhost:9990/cards", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: id
+    }),
+  });
+  
+    getCards();
+}
+
+async function editCard(id) {
+  
+}
+
 async function createCard() {
   try {
     showLoading(true);
@@ -60,7 +81,7 @@ async function createCard() {
     let gameEdition = document.getElementById("game-edition-select").value;
     let rarity = document.getElementById("rarity-input").value;
 
-    if(enName == "" || ptName == "" || cardGame == "select" || rarity == ""){
+    if(enName == "" || ptName == "" || cardGame == "select" || rarity == "" || imageBase64 == ""){
       document.getElementById("img-error-message").innerHTML = "erro";
       return;
     }
@@ -82,6 +103,13 @@ async function createCard() {
   } catch (e) {
     console.log(e.message);
   } finally {
+    enName = "";
+    ptName = "";
+    cardGame = "select";
+    gameEdition = "";
+    rarity = "";
+    imageBase64 = "";
+    getCards();
     showLoading(false);
   }
 }
@@ -92,6 +120,10 @@ function showHelpInfo(buttonId) {
   } else{
     document.getElementById(buttonId+"-card").className = "help-info"
   }
+}
+
+function closeNewCardForm(){
+  document.getElementById("new-card-form").className = "new-card-form hidden";
 }
 
 getCards();
@@ -136,4 +168,8 @@ document.getElementById('img-input').addEventListener('change', (event) => {
   if (file) {
     imageToBinary(file);
   }
+});
+
+newCardButton.addEventListener("click", () => {
+  document.getElementById("new-card-form").className = "new-card-form";
 });

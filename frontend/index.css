@@ -1,6 +1,7 @@
 body{
     background-color: rgb(27, 27, 34);
     color: white;
+    padding: 2rem;
 }
 
 a{
@@ -8,12 +9,17 @@ a{
 }
 
 .new-card-form{
-    width: 49rem;
+    justify-self: center;
+    width: 32rem;
     display: flex;
     flex-direction: column;
     padding: 1.2rem;
     border-radius: 0.8rem;
     background-color: rgb(30, 42, 70);
+}
+
+.hidden{
+    display: none;
 }
 
 .new-card-form input, select{
@@ -29,7 +35,8 @@ a{
     width: 30rem;
 }
 
-.new-card-form label{
+.new-card-form h2{
+    margin-top: 0;
 }
 
 #img-input{
@@ -42,14 +49,33 @@ a{
     gap: 2rem;
 }
 
+.new-card-form .button-container{
+    display: flex;
+    gap: 0.8rem;
+}
+
 .create-card-button{
-    width: 8rem;
+    width: 10rem;
+    padding: 0.6rem 0.2rem;
+    background-color: #c14ecc;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+}
+
+.close-form-button{
+    width: 6rem;
     padding: 0.6rem 0.8rem;
-    background-color: #7e48b1;
+    background-color: #877e88;
     color: white;
     border: none;
     border-radius: 0.4rem;
     margin-top: 1.2rem;
+}
+
+.new-card-form .create-card-button{
+    width: 8rem;
+    background-color: #783fae;
 }
 
 .help-info{
@@ -112,4 +138,8 @@ a{
     height: 15rem;
     border-radius: 0.2rem;
     background-color: aquamarine;
+}
+
+.card-prop{
+    color: rgb(238, 168, 231);
 }
