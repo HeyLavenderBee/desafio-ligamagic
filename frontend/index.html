@@ -1,133 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./index.css" />
-    <title>Dashboard</title>
-  </head>
-  <body>
-    <h1>Página Administrativa</h1>
-    <div class="new-card-form hidden" id="new-card-form">
-      <h2>Cadastrar Carta</h2>
-      <label for="input-en-name">Nome da carta em inglês</label>
-      <input id="input-en-name" required />
-      <label for="input-pt-name">Nome da carta em português</label>
-      <input id="input-pt-name" />
-
-      <div class="card-select-container">
-        <div>
-          <div class="help-info" id="card-game-info-card">
-            Nome do jogo que vem essa carta (ex.: Pokémon)
-          </div>
-          <div>
-            <label>Card Game</label>
-            <button
-              id="card-game-info"
-              class="info-button"
-              onclick="showHelpInfo(id)"
-            >
-              i
-            </button>
-          </div>
-          <select id="card-game-select" required>
-            <option value="selecione">Selecione um card game</option>
-            <option id="magic" value="magic">Magic: The Gathering</option>
-            <option id="pokemon" value="pokemon">Pokemon</option>
-            <option id="yugioh" value="yugioh">Yu-Gi-Oh!</option>
-          </select>
-        </div>
-
-        <div>
-          <div class="help-info" id="edition-info-card">
-            Cartas de cada card game pertecem a uma edição.<br>
-            Caso não saiba a edição, pesquise por foto<br>
-            por um sistema de busca por imagens ou pesquise<br>
-            pelo nome da carta específica. 
-          </div>
-          <div>
-            <label>Edição</label>
-            <button
-              id="edition-info"
-              class="info-button"
-              onclick="showHelpInfo(id)"
-            >
-              i
-            </button>
-          </div>
-          <select id="game-edition-select" disabled required>
-            <option>Selecione um Card Game primeiro</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="help-info" id="rarity-info-card">
-        Cada carta Pokémon tem símbolos que você pode verificar no canto que
-        indicam sua raridade.<br />
-        Aqui estão os links para cada um dos card games:
-        <br />
-        <a href="https://www.wikihow.com/Pokemon-Rarity-Symbols">Pokémon</a>
-        <br />
-        <a href="https://www.wargamer.com/magic-the-gathering/card-rarity"
-          >Magic: The Gathering</a
-        >
-        <br />
-        <a href="https://www.yugiohcardguide.com/guide_to_card_rarity.html"
-          >Yu-Gi-Oh!</a
-        >
-      </div>
-      <div>
-        <label for="rarity-info">Raridade da carta</label>
-        <button id="rarity-info" class="info-button" onclick="showHelpInfo(id)">
-          i
-        </button>
-      </div>
-      <input id="rarity-input" required />
-
-      <div class="help-info" id="img-info-card">
-        Tire uma foto da carta que ela esteja completamente visível, e da sua
-        frente
-      </div>
-      <div>
-        <p id="img-error-message"></p>
-        <label>Imagem da carta</label>
-        <button id="img-info" class="info-button" onclick="showHelpInfo(id)">
-          i
-        </button>
-      </div>
-
-      <input type="file" id="img-input" required />
-      <div id="output"></div>
-
-      <div class="button-container">
-        <button onclick="createCard()" class="create-card-button">
-          Criar carta
-        </button>
-        <button onclick="closeNewCardForm()" class="close-form-button">
-          Cancelar
-        </button>
-      </div>
-    </div>
-
-    <br />
-    <button class="create-card-button" id="open-new-card-form-button">
-      + Cadastrar nova carta
-    </button>
-    <br /><br />
-    <p id="total-cards">Cartas existentes (0)</p>
-    <div id="loading-icon"></div>
-
-    <div id="backend-result" class="cards-list"></div>
-
-    <!-- <div class="card">
-        Nome em inglês da carta<br>
-        Nome em português da carta<br>
-        Jogo<br>
-        Edição<br>
-        Raridade<br>
-        <img class="card-img" src="img/lucario-card.png">
-        <button>Editar carta</button>
-    </div> -->
-    <script src="./index.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css" />
+  <title>Login</title>
+</head>
+<body>
+  <h1>Faça login como Administrador</h1>
+  <p>Para acessar o serviço, é necessário fazer login de uma das contas registradas para administrador.</p>
+  <form action="dashboard.html">
+    <label>E-mail</label>
+    <input>
+    <br>
+    <label>Senha</label>
+    <input>
+    <input type="submit">
+  </form>
+</body>
 </html>

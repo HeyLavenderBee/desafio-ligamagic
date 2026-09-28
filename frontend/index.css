@@ -10,10 +10,10 @@ a{
 
 .new-card-form{
     justify-self: center;
-    width: 32rem;
+    width: 28rem;
     display: flex;
     flex-direction: column;
-    padding: 1.2rem;
+    padding: 1.5rem;
     border-radius: 0.8rem;
     background-color: rgb(30, 42, 70);
 }
@@ -32,7 +32,7 @@ a{
 }
 
 .new-card-form input{
-    width: 30rem;
+    width: 90%;
 }
 
 .new-card-form h2{
