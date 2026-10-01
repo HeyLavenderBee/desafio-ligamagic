@@ -9,13 +9,16 @@
 <body>
   <h1>Faça login como Administrador</h1>
   <p>Para acessar o serviço, é necessário fazer login de uma das contas registradas para administrador.</p>
-  <form action="dashboard.html">
+  <form>
+    <p id="error-message"></p>
+    <p id="loading-message"></p>
     <label>E-mail</label>
-    <input>
+    <input id="email-input">
     <br>
     <label>Senha</label>
-    <input>
-    <input type="submit">
+    <input id="password-input">
+    <button id="login-button" type="button" onclick="checkUser()">Entrar</button>
   </form>
+  <script src="index.js"></script>
 </body>
 </html>

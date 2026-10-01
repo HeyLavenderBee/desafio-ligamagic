@@ -1,0 +1,11 @@
+FROM php:8.2-apache
+
+RUN a2enmod rewrite
+
+RUN docker-php-ext-install pdo pdo_mysql
+
+WORKDIR /var/www/html
+
+COPY index.php .
+
+EXPOSE 80

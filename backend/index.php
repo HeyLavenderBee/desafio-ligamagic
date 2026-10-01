@@ -20,27 +20,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 switch ($uri){
     case "/cards":
         if($method == "GET"){
-            $sql = "SELECT * FROM cards";
-            $sql_result = mysqli_query($conn, $sql);
+            $stmt = $conn->query("SELECT * FROM cards");
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            $result = [];
-
-            if($sql_result){
-                $i = 0;
-                while($row = mysqli_fetch_assoc($sql_result)){
-                    $result[$i]['id'] = $row['id'];
-                    $result[$i]['en_name'] = $row['en_name'];
-                    $result[$i]['pt_name'] = $row['pt_name'];
-                    $result[$i]['card_game'] = $row['card_game'];
-                    $result[$i]['game_edition'] = $row['game_edition'];
-                    $result[$i]['img'] = $row['img'];
-                    $result[$i]['rarity'] = $row['rarity'];
-                    $i++;
-                }
+            if($result){
                 $response = ["status" => "success", "message" => $result];
-                break;
+            } else{
+                $response = ["status" => "success", "message" => "Não há nenhum dado, ou não foi possível conectar ao banco de dados."];
             }
-            $response = ["status" => "success", "message" => "Não há nenhum dado, ou não foi possível conectar ao banco de dados."];
+            
         }
         else if ($method == "POST"){
             $json_body = file_get_contents('php://input');
@@ -56,10 +44,12 @@ switch ($uri){
                 $sql = "INSERT INTO cards 
                     (en_name, pt_name, card_game, game_edition, rarity, img)
                     VALUES
-                    ('".$en_name."', '".$pt_name."', '".$card_game."', '".$game_edition."', '".$rarity."', '".$img."')
+                    (?, ?, ?, ?, ?, ?)
                 ";
 
-                if($conn->query($sql) === TRUE){
+                $stmt = $conn->prepare($sql);
+
+                if($stmt->execute([$en_name, $pt_name, $card_game, $game_edition, $rarity, $img])){
                     $response = ["status" => "success", "message" => "Carta criada com sucesso! Reinicie a página."];
                 } else{
                     $response = ["status" => "error", "message" => "Não foi possível criar a carta. Tente novamente."];
@@ -70,8 +60,8 @@ switch ($uri){
             $data = json_decode($json_body, true);
             if($data && isset($data['id'])){
                 $id = $data['id'];
-                $sql = "DELETE FROM cards where id = '".$id."'";
-                if($conn->query($sql) === TRUE){
+                $stmt = $conn->prepare("DELETE FROM cards where id = ?");
+                if($stmt->execute([$id])){
                     $response = ["status" => "success", "message" => "Carta deletada."];
                 } else{
                     $response = ["status" => "error", "message" => "Não foi possível deletar a carta. Tente novamente."];
